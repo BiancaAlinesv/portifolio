@@ -1,0 +1,235 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body{
+    font-family: 'inter', sans-serif;
+    background-color: #0a0a0f;
+    color: #e0e0e0;
+    line-height: 1.6;
+}
+
+.container{
+    max-width: 1200px;
+    margin:0 auto;
+    padding: 0 24 px;
+}
+
+/* ===== CORES PRINCIPAIS (roxo pastel) ===== */
+:root {
+    --bg-dark: #0a0a0f;
+    --bg-card: #14141a;
+    --purple-light: #c084fc;
+    --purple-soft: #a855f7;
+    --purple-dark: #7e22ce;
+    --gray-text: #a1a1aa;
+    --border: #27272a;
+}
+
+.navbar{
+    position: fixed;
+    top: 0;
+    width: 100%;
+    background: rgba(10, 10, 15, 0.95);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--border);
+    z-index: 1000;
+    padding: 16px 0;
+}
+
+.navbar .container{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo{
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--purple-light);
+    text-decoration: none;
+}
+
+.nav-links{
+    display: flex;
+    gap: 32px;
+    list-style: none;
+}
+
+.nav-links a {
+    color: var(--gray-text);
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+.nav-links a:hover {
+    color: var(--purple-light);
+}
+
+.mobile-menu-btn {
+    display: none;
+    background: none;
+    border: none;
+    color: white;
+    font-size: 1.5rem;
+    cursor: pointer;
+}
+
+.hero {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    padding: 120px 0 80px;
+}
+
+.hero-tag{
+    color: var(--purple-light);
+    font-size: 1rem;
+    letter-spacing: 2px;
+}
+
+.hero-title{
+    font-size: 3.5rem;
+    font-weight: 700;
+    margin: 16px 0;
+    background: linear-gradient(135deg, #fff 0%, var(--purple-light) 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+}
+
+.hero-subtitle {
+    font-size: 1.5rem;
+    color: var(--gray-text);
+    margin-bottom: 24px;
+}
+
+.hero-description {
+    max-width: 600px;
+    margin-bottom: 32px;
+    color: var(--gray-text);
+}
+
+.btn {
+    display: inline-block;
+    padding: 12px 28px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s;
+}
+
+.btn-primary {
+    background: var(--purple-soft);
+    color: white;
+    border: none;
+}
+
+.btn-primary:hover {
+    background: var(--purple-dark);
+    transform: translate(-2px);
+}
+
+.btn-outline {
+    border: 1px solid var(--purple-light);
+    color: var(--purple-light); 
+    margin-left: 16px;
+}
+
+.btn-outline:hover {
+    background: rgba(168, 85, 247, 0.1);
+}
+
+.section-title {
+    font-size: 2rem;
+    margin-bottom: 48px;
+    text-align: center;
+    color: white;
+}
+
+.about, .projects, .skills, .contact {
+    padding: 80px 0;
+}
+
+.projects-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 32px;
+}
+
+.projects-card {
+    background: ar(--bg-card);
+    border-radius: 16px;
+    overflow: hidden;
+    border: 1px solid var(--border);
+    transition: 0.3s;
+}
+
+.projects-card:hover {
+    transform: translate(-8px);
+    border-color: var(--purple-soft);
+}
+
+.project-image {
+    height: 200px;
+    background: linear-gradient(135deg, var(--purple-dark), var(--bg-dark));
+}
+
+.project-info {
+    padding: 24px;
+}
+
+.project-tech span {
+    display: inline-block;
+    background: rgba(168, 85, 247, 0.2);
+    color: var(--purple-light);
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 0.75rem;
+    margin-right: 8px;
+    margin-top: 12px;
+}
+.project-links {
+    margin-top: 16px;
+    display: flex;
+    gap: 16px;
+}
+
+.projects-links a {
+    color: var(--purple-light);         
+    text-decoration: none;
+}
+
+.skills-grid{
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.skills-item {
+    margin-bottom: 24px;
+}
+
+.skills-name {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 500;
+}
+
+.skills-bar {
+    background: var(--border);
+    height: 8px;
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+.skill.progress {
+    background: var(--purple-soft);
+    height: 100%;
+    border-radius: 4px;
+}
+
+
+
+
