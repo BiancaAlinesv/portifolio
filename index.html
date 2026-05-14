@@ -120,9 +120,29 @@
      <section id="container" class="contact">
         <div class="container">
             <h2 class="section-title">Vamos Conversar</h2>
-            <div class="contact-content"></div>
+            <div class="contact-content">
+                <form id="contact-form" class="contact-form">
+                    <input type="text" placeholder="Seu Nome" id="name" required>
+                    <input type="email" placeholder="Seu Email" id="email" required>
+                    <textarea placeholder="Sua mensagem" rows="5" id="message" required></textarea>
+
+                    <button type="submit" class="btn btn-primary">Enviar Mensagem</button>
+                    <p class="form-message" id="formMessage"></p>
+                </form>
+                <div class="social-links">
+                    <a href="#">GitHub</a>
+                    <a href="#">LinkedIn</a>
+                </div>
+            </div>
         </div>
      </section>
+
+     <!-- FOOTER -->
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2026 Bianca Aline da S Negretti. Todos os direitos reservados.</p>
+        </div>
+    </footer>
 
 </body>
 </html>
