@@ -1,149 +1,347 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-br" data-theme="dark">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Portfolio pessoal - desenvolvedor">
-    <title>Portfolio</title>
-    <link rel="stylesheet" href="styles.css">
+    <meta name="description" content="Portfolio e currículo digital de Bianca Aline — desenvolvedora web com projetos elegantes, automações em IA e soluções centradas no usuário.">
+    <meta name="keywords" content="desenvolvedora web, portfólio, currículo online, IA, inteligência artificial, frontend, JavaScript, Python, SQL, UX, web design">
+    <meta name="author" content="Bianca Aline">
+    <meta name="theme-color" content="#7c3aed">
+    <title>Bianca Aline — Desenvolvedora Web | Portfólio e CV</title>
+    <link rel="stylesheet" href="assets/styles.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,600;14..32,700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@300;400;500&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Person",
+      "name": "Bianca Aline",
+      "jobTitle": "Desenvolvedora Web",
+      "description": "Desenvolvedora web com experiência em projetos digitais, automações com IA e soluções elegantes para a web.",
+      "url": "https://bianca-aline.dev",
+      "sameAs": [
+        "https://github.com/BiancaAlinesv",
+        "https://www.linkedin.com/in/bianca-aline"
+      ],
+      "knowsAbout": ["Desenvolvimento Web", "JavaScript", "CSS", "Python", "SQL", "Inteligência Artificial", "UX"],
+      "email": "mailto:bianca.alinedev@gmail.com"
+    }
+    </script>
 </head>
 <body>
-    <nav class="navbar">
-        <div class="container">
-            <a href="#" class="Logo"></a>&lt;/&gt; Bianca Aline</a>
-            <ul class="nav-links">
-               <li><a href="#home">Início</a></li> 
-               <li><a href="#about">Sobre</a></li>
-               <li><a href="#projects">Projetos</a></li>
-               <li><a href="#skills">Habilidades</a></li>
-               <li><a href="#contact">Contato</a></li>
+
+    <!-- HEADER -->
+    <header>
+    <nav class="navbar" id="navbar">
+        <div class="nav-inner">
+            <a href="#home" class="nav-logo">
+                <span class="logo-bracket">{</span>
+                <span class="logo-name">ba</span>
+                <span class="logo-bracket">}</span>
+            </a>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="#home" class="nav-link" data-num="00">Início</a></li>
+                <li><a href="#about" class="nav-link" data-num="01">Sobre</a></li>
+                <li><a href="#projects" class="nav-link" data-num="02">Projetos</a></li>
+                <li><a href="#skills" class="nav-link" data-num="03">Habilidades</a></li>
+                <li><a href="#contact" class="nav-link" data-num="04">Contato</a></li>
             </ul>
-            <button class="mobile-menu-btn" id="mobileMenuBtn">☰</button>
-            <button id="themeToggle" class="theme-btn">☀️</button>
-
+            <div class="nav-actions">
+                <button id="themeToggle" class="theme-btn" aria-label="Alternar tema">
+                    <span class="theme-icon"></span>
+                </button>
+                <button class="hamburger" id="hamburger" aria-label="Menu">
+                    <span></span><span></span>
+                </button>
+            </div>
         </div>
-
     </nav>
 
+    <!-- MOBILE MENU OVERLAY -->
+    <div class="mobile-overlay" id="mobileOverlay">
+        <ul class="mobile-nav-links">
+            <li><a href="#home" class="mobile-link">Início</a></li>
+            <li><a href="#about" class="mobile-link">Sobre</a></li>
+            <li><a href="#projects" class="mobile-link">Projetos</a></li>
+            <li><a href="#skills" class="mobile-link">Habilidades</a></li>
+            <li><a href="#contact" class="mobile-link">Contato</a></li>
+        </ul>
+    </div>
+    </header>
+
+    <main>
+
+    <!-- HERO -->
     <section id="home" class="hero">
+        <div class="hero-bg-text" aria-hidden="true">DEV</div>
         <div class="container">
             <div class="hero-content">
-                <span class="hero-tag">Olá, eu sou</span>
-                <h1 class="hero-title">Bianca Aline</h1>
-                <p class="hero-subtitle">Desenvolvedora em formação, apaixonada por criar soluções elegantes</p>
-                <p class="Hero-description">Me especializando em HTML, CSS, JavaScript, Python, SQL.
-                    Transformo ideias em código funcional e experiências digitais envolventes. Estou sempre em busca de novos desafios para aprimorar minhas habilidades e contribuir para projetos inovadores.  
+                <p class="hero-eyebrow reveal">
+                    <span class="eyebrow-line"></span>
+                    Desenvolvedora em formação
                 </p>
-                <div class="hero-buttons">
+                <h1 class="hero-name reveal-delay-1">
+                    Bianca<br><em>Aline</em>
+                </h1>
+                <p class="hero-tagline reveal-delay-2">
+                    Transformo lógica em experiências<br>digitais que conectam marca, cliente e resultado.
+                </p>
+                <p class="hero-subtitle reveal-delay-3">Portfólio e currículo digital pensado para gerar impacto, clareza e confiança desde o primeiro clique.</p>
+                <div class="hero-stack reveal-delay-4">
+                    <span>HTML</span>
+                    <span class="dot">·</span>
+                    <span>CSS</span>
+                    <span class="dot">·</span>
+                    <span>JavaScript</span>
+                    <span class="dot">·</span>
+                    <span>Python</span>
+                    <span class="dot">·</span>
+                    <span>IA</span>
+                </div>
+                <div class="hero-cta reveal-delay-5">
                     <a href="#projects" class="btn btn-primary">Ver Projetos</a>
-                    <a href="#contact" class="btn btn-outline">Contato</a>
+                    <a href="curriculo.pdf" download class="btn btn-cv">Baixar CV</a>
+                    <a href="#contact" class="btn btn-ghost">Fale comigo</a>
                 </div>
             </div>
+            <div class="hero-index" aria-hidden="true">
+                <span>Sorocaba, SP</span>
+                <span class="index-divider"></span>
+                <span>2026</span>
+            </div>
         </div>
-
+        <div class="hero-scroll-hint" aria-hidden="true">
+            <span>scroll</span>
+            <div class="scroll-line"></div>
+        </div>
     </section>
 
-    <section id="abount" class="abount">
+    <!-- SOBRE -->
+    <section id="about" class="about">
         <div class="container">
-            <h2 class="section-title">Sobre Mim</h2>
-            <div class="abount-content">
-                <div class="abount-text">
-                    <p>Sou uma desenvolvedora apaixonada por tecnologia, unindo lógica e criatividade para criar soluções web modernas e funcionais. Atualmente aprofundando conhecimentos em desenvolvimento web, Python e banco de dados SQL, com foco em evolução constante e construção de projetos práticos.
-                    </p>
-                    <p>Quando não estou programando, estou estudando novas tecnologias, aprimorando minhas habilidades e desenvolvendo projetos para evoluir cada vez mais na área. Acredito que um bom código é aquele que resolve problemas reais de forma simples, eficiente e organizada.
-                    </p>
-                    <div class="abount-info">
-                        <div><strong> 📧 Email:</strong>bianca.alinedev@gmail.com</div>
-                        <div><strong> 📍 Localização:</strong> Sorocaba, SP</div>
-                        <div><strong> 🎓 EStudos:</strong> HTML/CSS/JS | Python | SQL</div>
+            <div class="section-header">
+                <span class="section-num">01</span>
+                <h2 class="section-title">Sobre Mim</h2>
+            </div>
+            <div class="about-grid">
+                <div class="about-portrait">
+                    <div class="portrait-placeholder">
+                        <span>BA</span>
+                    </div>
+                    <div class="about-meta">
+                        <div class="meta-item">
+                            <span class="meta-label">Email</span>
+                            <a href="mailto:bianca.alinedev@gmail.com" class="meta-value">bianca.alinedev<br>@gmail.com</a>
+                        </div>
+                        <div class="meta-item">
+                            <span class="meta-label">Localização</span>
+                            <span class="meta-value">Sorocaba, SP</span>
+                        </div>
+                        <div class="meta-item">
+                            <span class="meta-label">Foco</span>
+                            <span class="meta-value">Web · IA · Python · SQL</span>
+                        </div>
+                        <div class="meta-item meta-cta">
+                            <a href="curriculo.pdf" download class="btn btn-cv btn-small">
+                                <span>📄</span>
+                                <span>Baixar CV</span>
+                            </a>
+                        </div>
                     </div>
                 </div>
+                <div class="about-text">
+                    <p class="about-lead">
+                        Apaixonada por tecnologia, uno lógica e criatividade para criar soluções web modernas e funcionais.
+                    </p>
+                    <p>
+                        Atualmente aprofundando conhecimentos em desenvolvimento web, Python e banco de dados SQL, com foco em evolução constante e construção de projetos práticos que resolvem problemas reais.
+                    </p>
+                    <p>
+                        Acredito que um bom código é aquele que resolve problemas de forma simples, eficiente e organizada — sem ruído, sem exagero.
+                    </p>
+                </div>
             </div>
         </div>
     </section>
 
+    <!-- PROJETOS -->
     <section id="projects" class="projects">
         <div class="container">
-            <h2 class="section-title">Projetos</h2>
-            <div class="projects-grid" id="projectsGrid">
-                <!-- Projeto 1 -->
-                 <div class="project-image"></div>
-                 <div class="project-info">
-                    <h3>Projeto 1</h3>
-                    <p>Descrição; depois que finalizar eu coloco!</p>
-                    <div class="project-tech">
-                        <span>HTML</span>
-                        <span>css</span>
-                        <span>Js</span>
-                    </div>
-
-                 </div>
+            <div class="section-header">
+                <span class="section-num">02</span>
+                <h2 class="section-title">Projetos</h2>
             </div>
-            
+            <div class="projects-list">
+
+                <!-- Projeto 1 -->
+                <article class="project-item">
+                    <div class="project-number" aria-hidden="true">001</div>
+                    <div class="project-visual">
+                        <div class="project-thumb thumb-1"></div>
+                    </div>
+                    <div class="project-body">
+                        <h3 class="project-name">Landing page de alto impacto</h3>
+                        <p class="project-desc">Design responsivo e foco em conversão, com navegação rápida, tipografia refinada e apresentação profissional de marca pessoal.</p>
+                        <div class="project-tags">
+                            <span>HTML</span>
+                            <span>CSS</span>
+                            <span>JavaScript</span>
+                        </div>
+                        <div class="project-links">
+                            <a href="#" class="plink">Ver projeto →</a>
+                            <a href="#" class="plink">GitHub →</a>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Projeto 2 (base escalável) -->
+                <article class="project-item">
+                    <div class="project-number" aria-hidden="true">002</div>
+                    <div class="project-visual">
+                        <div class="project-thumb thumb-2"></div>
+                    </div>
+                    <div class="project-body">
+                        <h3 class="project-name">Fundação digital pronta para crescer</h3>
+                        <p class="project-desc">Estrutura pensada para expansão, integrando conteúdo, desempenho e usabilidade com experiência moderna desde o primeiro acesso.</p>
+                        <div class="project-tags">
+                            <span>Python</span>
+                            <span>SQL</span>
+                            <span>UX</span>
+                        </div>
+                    </div>
+                </article>
+
+            </div>
         </div>
     </section>
 
-     <!-- HABILIDADES -->
+    <!-- HABILIDADES -->
     <section id="skills" class="skills">
         <div class="container">
-            <h2 class="section-title">Habilidades</h2>
-                <div class="skills-item">
-                    <span class="skill-name">HTML5</span>
-                    <div class="skill-bar"><div class="skill-progress" style="width: 80%;"></div></div>
-
-                <div class="skill-item">
-                    <span class="skill-name">CSS3</span>
-                    <div class="skill-bar"><div class="skill-progress" style="width: 80%;"></div></div>
+            <div class="section-header">
+                <span class="section-num">03</span>
+                <h2 class="section-title">Habilidades</h2>
+            </div>
+            <div class="skills-grid">
+                <div class="skill-row" data-level="80">
+                    <div class="skill-info">
+                        <span class="skill-name">HTML5</span>
+                        <span class="skill-pct">80%</span>
+                    </div>
+                    <div class="skill-track">
+                        <div class="skill-fill"></div>
+                    </div>
                 </div>
-
-                <div class="skill-item">
-                    <span class="skill-name">JavaScript</span>
-                    <div class="skill-bar"><div class="skill-progress" style="width: 80%;"></div></div>
+                <div class="skill-row" data-level="80">
+                    <div class="skill-info">
+                        <span class="skill-name">CSS3</span>
+                        <span class="skill-pct">80%</span>
+                    </div>
+                    <div class="skill-track">
+                        <div class="skill-fill"></div>
+                    </div>
                 </div>
-
-                <div class="skill-item">
-                    <span class="skill-name">Python</span>
-                    <div class="skill-bar"><div class="skill-progress" style="width: 80%;"></div></div>
+                <div class="skill-row" data-level="70">
+                    <div class="skill-info">
+                        <span class="skill-name">JavaScript</span>
+                        <span class="skill-pct">70%</span>
+                    </div>
+                    <div class="skill-track">
+                        <div class="skill-fill"></div>
+                    </div>
                 </div>
-
-                <div class="skill-item">
-                    <span class="skill-name">SQL</span>
-                    <div class="skill-bar"><div class="skill-progress" style="width: 80%;"></div></div>
+                <div class="skill-row" data-level="65">
+                    <div class="skill-info">
+                        <span class="skill-name">Python</span>
+                        <span class="skill-pct">65%</span>
+                    </div>
+                    <div class="skill-track">
+                        <div class="skill-fill"></div>
+                    </div>
+                </div>
+                <div class="skill-row" data-level="60">
+                    <div class="skill-info">
+                        <span class="skill-name">SQL</span>
+                        <span class="skill-pct">60%</span>
+                    </div>
+                    <div class="skill-track">
+                        <div class="skill-fill"></div>
+                    </div>
+                </div>
+                <div class="skill-row" data-level="75">
+                    <div class="skill-info">
+                        <span class="skill-name">IA / Inteligência Artificial</span>
+                        <span class="skill-pct">75%</span>
+                    </div>
+                    <div class="skill-track">
+                        <div class="skill-fill"></div>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- CONTATO -->
-     <section id="container" class="contact">
+    <section id="contact" class="contact">
         <div class="container">
-            <h2 class="section-title">Vamos Conversar</h2>
-            <div class="contact-content">
-                <form id="contact-form" class="contact-form">
-                    <input type="text" placeholder="Seu Nome" id="name" required>
-                    <input type="email" placeholder="Seu Email" id="email" required>
-                    <textarea placeholder="Sua mensagem" rows="5" id="message" required></textarea>
-
-                    <button type="submit" class="btn btn-primary">Enviar Mensagem</button>
-                    <p class="form-message" id="formMessage"></p>
-                </form>
-                <div class="social-links">
-                    <a href="https://github.com/BiancaAlinesv">GitHub</a>
-                    <a href="https://www.linkedin.com/in/bianca-aline">LinkedIn</a>
+            <div class="section-header">
+                <span class="section-num">04</span>
+                <h2 class="section-title">Vamos Conversar</h2>
+            </div>
+            <div class="contact-grid">
+                <div class="contact-intro">
+                    <p class="contact-headline">Tem um projeto em mente?</p>
+                    <p>Estou aberta a conversas sobre desenvolvimento, parcerias ou só para trocar uma ideia sobre tecnologia.</p>
+                    <div class="contact-socials">
+                        <a href="https://github.com/BiancaAlinesv" target="_blank" rel="noopener" class="social-item">
+                            <span class="social-label">GitHub</span>
+                            <span class="social-arrow">↗</span>
+                        </a>
+                        <a href="https://www.linkedin.com/in/bianca-aline" target="_blank" rel="noopener" class="social-item">
+                            <span class="social-label">LinkedIn</span>
+                            <span class="social-arrow">↗</span>
+                        </a>
+                        <a href="mailto:bianca.alinedev@gmail.com" class="social-item">
+                            <span class="social-label">Email</span>
+                            <span class="social-arrow">↗</span>
+                        </a>
+                    </div>
                 </div>
+                <form id="contactForm" class="contact-form" novalidate>
+                    <div class="form-field">
+                        <label for="name">Nome</label>
+                        <input type="text" id="name" placeholder="Como posso te chamar?" required>
+                    </div>
+                    <div class="form-field">
+                        <label for="email">Email</label>
+                        <input type="email" id="email" placeholder="seu@email.com" required>
+                    </div>
+                    <div class="form-field">
+                        <label for="message">Mensagem</label>
+                        <textarea id="message" rows="5" placeholder="Sobre o que você quer conversar?" required></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-full">
+                        <span class="btn-text">Enviar Mensagem</span>
+                        <span class="btn-icon">→</span>
+                    </button>
+                    <p class="form-feedback" id="formFeedback" aria-live="polite"></p>
+                </form>
             </div>
         </div>
-     </section>
+    </section>
 
-     <!-- FOOTER -->
+    <!-- FOOTER -->
+    </main>
     <footer class="footer">
         <div class="container">
-            <p>&copy; 2026 Bianca Aline da S Negretti. Todos os direitos reservados.</p>
+            <div class="footer-inner">
+                <span class="footer-name">Bianca Aline da S. Negretti</span>
+                <span class="footer-copy">© 2026 — Todos os direitos reservados</span>
+            </div>
         </div>
     </footer>
 
+    <script src="assets/script.js"></script>
 </body>
 </html>
