@@ -42,17 +42,20 @@
     const mobileOverlay = document.getElementById('mobileOverlay');
     const mobileLinks  = document.querySelectorAll('.mobile-link');
 
-    function openMenu() {
-        hamburger.classList.add('open');
-        mobileOverlay.classList.add('open');
-        document.body.style.overflow = 'hidden';
-    }
+function openMenu() {
+hamburger.classList.add('open');
+hamburger.setAttribute('aria-expanded', 'true');
+mobileOverlay.classList.add('open');
+document.body.style.overflow = 'hidden';
+hamburger.focus();
+}
 
-    function closeMenu() {
-        hamburger.classList.remove('open');
-        mobileOverlay.classList.remove('open');
-        document.body.style.overflow = '';
-    }
+function closeMenu() {
+hamburger.classList.remove('open');
+hamburger.setAttribute('aria-expanded', 'false');
+mobileOverlay.classList.remove('open');
+document.body.style.overflow = '';
+}
 
     if (hamburger) {
         hamburger.addEventListener('click', () => {
@@ -64,10 +67,18 @@
         link.addEventListener('click', closeMenu);
     });
 
-    // Fecha ao redimensionar para desktop
-    window.addEventListener('resize', () => {
-        if (window.innerWidth > 768) closeMenu();
-    });
+// Fecha ao redimensionar para desktop
+window.addEventListener('resize', () => {
+if (window.innerWidth > 768) closeMenu();
+});
+
+// Fecha com tecla Escape
+document.addEventListener('keydown', (e) => {
+if (e.key === 'Escape' && mobileOverlay.classList.contains('open')) {
+closeMenu();
+hamburger.focus();
+}
+});
 
 
     /* =========================================================
@@ -90,9 +101,9 @@
     /* =========================================================
        REVEAL AO SCROLL (Intersection Observer)
        ========================================================= */
-    const revealEls = document.querySelectorAll(
-        '.reveal, .reveal-delay-1, .reveal-delay-2, .reveal-delay-3, .reveal-delay-4'
-    );
+const revealEls = document.querySelectorAll(
+'.reveal, .reveal-delay-1, .reveal-delay-2, .reveal-delay-3, .reveal-delay-4, .reveal-delay-5'
+);
 
     const revealObserver = new IntersectionObserver(
         (entries) => {
