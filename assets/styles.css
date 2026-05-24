@@ -723,13 +723,13 @@ flex-shrink: 0;
 }
 
 .portrait-img {
-  display: block;
-  width: 180px;
-  height: 180px;
-  max-width: 100%;
+  display: block !important;
+  width: 180px !important;
+  height: 180px !important;
+  max-width: 100% !important;
   border-radius: 12px;
   border: 2px solid var(--accent-dim);
-  object-fit: cover;
+  object-fit: cover !important;
   margin-bottom: 28px;
   box-shadow: 0 8px 24px var(--accent-dim);
 }
@@ -1216,9 +1216,9 @@ letter-spacing: 0.06em;
   }
 
   .portrait-img {
-    width: 150px;
-    height: 150px;
-    max-width: 100%;
+    width: 150px !important;
+    height: 150px !important;
+    max-width: 100% !important;
   }
 
     .project-item {
@@ -1265,9 +1265,9 @@ letter-spacing: 0.06em;
   }
 
   .portrait-img {
-    width: 80px;
-    height: 80px;
-    max-width: 80px;
+    width: 80px !important;
+    height: 80px !important;
+    max-width: 80px !important;
     border-radius: 8px;
     flex-shrink: 0;
     margin-bottom: 0;

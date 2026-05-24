@@ -60,7 +60,7 @@ require_once __DIR__ . '/layouts/header.php';
         </div>
         <div class="about-grid">
             <div class="about-portrait">
-          <img src="Gemini_Generated_Image_5yq84a5yq84a5yq8.png" alt="Foto de perfil de Bianca Aline" class="portrait-img" loading="lazy">
+          <img src="Gemini_Generated_Image_5yq84a5yq84a5yq8.png" alt="Foto de perfil de Bianca Aline" class="portrait-img" style="width:180px;height:180px;max-width:100%;object-fit:cover;" loading="lazy">
                 <div class="about-meta">
                     <div class="meta-item">
                         <span class="meta-label">Email</span>
