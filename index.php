@@ -60,9 +60,7 @@ require_once __DIR__ . '/layouts/header.php';
         </div>
         <div class="about-grid">
             <div class="about-portrait">
-                <div class="portrait-placeholder">
-                    <span>BA</span>
-                </div>
+          <img src="Gemini_Generated_Image_5yq84a5yq84a5yq8.png" alt="Foto de perfil de Bianca Aline" class="portrait-img" width="280" height="280" loading="lazy">
                 <div class="about-meta">
                     <div class="meta-item">
                         <span class="meta-label">Email</span>
@@ -91,10 +89,10 @@ require_once __DIR__ . '/layouts/header.php';
             </div>
             <div class="about-text">
                 <p class="about-lead">
-                    Apaixonada por tecnologia, uno lógica e criatividade para criar soluções web modernas e funcionais.
+                    Apaixonada por tecnologia e resolução de problemas, uso lógica e criatividade para construir experiências web que unem design moderno e funcionalidade.
                 </p>
                 <p>
-                    Atualmente aprofundando conhecimentos em desenvolvimento web, Python e banco de dados SQL, com foco em evolução constante e construção de projetos práticos que resolvem problemas reais.
+                    Atualmente aprofundando conhecimentos em desenvolvimento web, Php e banco de dados SQL, com foco em evolução constante e construção de projetos práticos que resolvem problemas reais.
                 </p>
                 <p>
                     Acredito que um bom código é aquele que resolve problemas de forma simples, eficiente e organizada — sem ruído, sem exagero.
