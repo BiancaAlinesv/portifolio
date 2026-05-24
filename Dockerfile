@@ -9,9 +9,8 @@ COPY docker/entrypoint.sh /entrypoint.sh
 RUN a2enmod rewrite \
     && a2dissite 000-default && a2ensite 000-default \
     && chmod +x /entrypoint.sh \
-    && echo "sendmail_path = /usr/bin/msmtp -t" > /usr/local/etc/php/conf.d/mail.ini
-
-RUN mkdir -p /var/www/html \
+    && echo "sendmail_path = /usr/bin/msmtp -t" > /usr/local/etc/php/conf.d/mail.ini \
+    && mkdir -p /var/www/html \
     && chown -R www-data:www-data /var/www/html
 
 EXPOSE 80
