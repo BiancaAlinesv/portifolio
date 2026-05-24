@@ -21,7 +21,7 @@ return [
         'eyebrow' => 'Desenvolvedora em formação',
         'email' => 'bianca.alinedev@gmail.com',
         'city' => 'Sorocaba, SP',
-        'focus' => 'Web · IA · Python · SQL',
+        'focus' => 'Web · IA · Python · Php · SQL',
         'cv_file' => 'curriculo.pdf',
         'cv_download_name' => 'Bianca-Aline-CV.pdf',
     ],
@@ -45,12 +45,13 @@ return [
     ],
 
     'skills' => [
-        ['name' => 'HTML5', 'level' => 80],
-        ['name' => 'CSS3', 'level' => 80],
-        ['name' => 'JavaScript', 'level' => 70],
-        ['name' => 'Python', 'level' => 65],
-        ['name' => 'SQL', 'level' => 60],
-        ['name' => 'IA / Inteligência Artificial', 'level' => 75],
+        ['name' => 'HTML5', 'level' => 90],
+        ['name' => 'CSS3', 'level' => 90],
+        ['name' => 'JavaScript', 'level' => 60],
+        ['name' => 'Python', 'level' => 45],
+        ['name' => 'Php', 'level' => 65],
+        ['name' => 'SQL', 'level' => 50],
+        ['name' => 'IA / Inteligência Artificial', 'level' => 85],
     ],
 
     'projects' => [

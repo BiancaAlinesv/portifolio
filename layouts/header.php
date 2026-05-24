@@ -11,7 +11,7 @@ declare(strict_types=1); ?>
             <div class="nav-inner">
                 <a href="#home" class="nav-logo">
                     <span class="logo-bracket">{</span>
-                    <span class="logo-name">ba</span>
+                    <span class="logo-name">B.N</span>
                     <span class="logo-bracket">}</span>
                 </a>
                 <ul class="nav-links" id="navLinks">
