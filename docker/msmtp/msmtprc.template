@@ -1,10 +1,10 @@
 account default
-host SMTP_HOST
-port SMTP_PORT
+host ${SMTP_HOST}
+port ${SMTP_PORT}
 tls on
 tls_starttls on
 auth on
-user SMTP_USER
-password SMTP_PASS
-from SMTP_FROM
+user ${SMTP_USER}
+password ${SMTP_PASS}
+from ${SMTP_FROM}
 logfile /var/log/msmtp.log
