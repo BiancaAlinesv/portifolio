@@ -7,4 +7,6 @@ envsubst < /etc/msmtprc.template > /etc/msmtprc
 chmod 600 /etc/msmtprc
 chown www-data:www-data /etc/msmtprc
 
+chown -R www-data:www-data /var/www/html
+
 exec apache2-foreground

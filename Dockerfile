@@ -11,11 +11,8 @@ RUN a2enmod rewrite \
     && chmod +x /entrypoint.sh \
     && echo "sendmail_path = /usr/bin/msmtp -t" > /usr/local/etc/php/conf.d/mail.ini
 
-COPY . /var/www/html/
-
-RUN chown -R www-data:www-data /var/www/html \
-    && find /var/www/html -type d -exec chmod 755 {} \; \
-    && find /var/www/html -type f -exec chmod 644 {} \;
+RUN mkdir -p /var/www/html \
+    && chown -R www-data:www-data /var/www/html
 
 EXPOSE 80
 

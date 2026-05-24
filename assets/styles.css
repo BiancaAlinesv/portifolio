@@ -722,9 +722,9 @@ flex-shrink: 0;
 }
 
 .portrait-img {
-  width: 100%;
-  max-width: 180px;
-  aspect-ratio: 1 / 1;
+  display: block;
+  width: 180px;
+  height: 180px;
   border-radius: 12px;
   border: 2px solid var(--accent-dim);
   object-fit: cover;
@@ -1214,7 +1214,8 @@ letter-spacing: 0.06em;
   }
 
   .portrait-img {
-    max-width: 150px;
+    width: 150px;
+    height: 150px;
   }
 
     .project-item {
@@ -1261,8 +1262,7 @@ letter-spacing: 0.06em;
 
   .portrait-img {
     width: 80px;
-    max-width: 80px;
-    aspect-ratio: 1 / 1;
+    height: 80px;
     border-radius: 8px;
     flex-shrink: 0;
     margin-bottom: 0;

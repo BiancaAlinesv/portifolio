@@ -6,6 +6,8 @@ services:
     container_name: bianca-portfolio
     ports:
       - "8003:80"
+    volumes:
+      - .:/var/www/html
     env_file:
       - .env
     restart: unless-stopped
