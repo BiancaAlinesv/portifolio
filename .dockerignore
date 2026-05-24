@@ -1,6 +1,7 @@
 .git/
 .opencode/
 node_modules/
+.env
 *.md
 LICENSE
 .gitignore

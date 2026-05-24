@@ -180,7 +180,7 @@ Acredito que um bom código é aquele que resolve problemas de forma simples, ef
 <?php endforeach; ?>
 </div>
 </div>
-<form id="contactForm" class="contact-form" novalidate>
+<form id="contactForm" class="contact-form" action="contact.php" method="POST" novalidate>
 <div class="form-field">
 <label for="name">Nome</label>
 <input type="text" id="name" name="name" placeholder="Como posso te chamar?" required autocomplete="name">
