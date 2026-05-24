@@ -717,14 +717,16 @@ flex-shrink: 0;
 }
 
 .about-portrait {
-    position: sticky;
-    top: calc(var(--nav-h) + 24px);
+  position: sticky;
+  top: calc(var(--nav-h) + 24px);
+  overflow: hidden;
 }
 
 .portrait-img {
   display: block;
   width: 180px;
   height: 180px;
+  max-width: 100%;
   border-radius: 12px;
   border: 2px solid var(--accent-dim);
   object-fit: cover;
@@ -1216,6 +1218,7 @@ letter-spacing: 0.06em;
   .portrait-img {
     width: 150px;
     height: 150px;
+    max-width: 100%;
   }
 
     .project-item {
@@ -1253,16 +1256,18 @@ letter-spacing: 0.06em;
         gap: 40px;
     }
 
-    .about-portrait {
-        position: static;
-        display: flex;
-        gap: 28px;
-        align-items: flex-start;
-    }
+  .about-portrait {
+    position: static;
+    display: flex;
+    gap: 28px;
+    align-items: flex-start;
+    overflow: visible;
+  }
 
   .portrait-img {
     width: 80px;
     height: 80px;
+    max-width: 80px;
     border-radius: 8px;
     flex-shrink: 0;
     margin-bottom: 0;
