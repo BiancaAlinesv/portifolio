@@ -722,7 +722,8 @@ flex-shrink: 0;
 }
 
 .portrait-img {
-  width: 180px;
+  width: 100%;
+  max-width: 180px;
   aspect-ratio: 1 / 1;
   border-radius: 12px;
   border: 2px solid var(--accent-dim);
@@ -1207,10 +1208,14 @@ letter-spacing: 0.06em;
     .container { padding: 0 28px; }
     .nav-inner { padding: 0 28px; }
 
-    .about-grid {
-        grid-template-columns: 180px 1fr;
-        gap: 48px;
-    }
+  .about-grid {
+    grid-template-columns: 180px 1fr;
+    gap: 48px;
+  }
+
+  .portrait-img {
+    max-width: 150px;
+  }
 
     .project-item {
         grid-template-columns: 48px 200px 1fr;
@@ -1256,6 +1261,7 @@ letter-spacing: 0.06em;
 
   .portrait-img {
     width: 80px;
+    max-width: 80px;
     aspect-ratio: 1 / 1;
     border-radius: 8px;
     flex-shrink: 0;
