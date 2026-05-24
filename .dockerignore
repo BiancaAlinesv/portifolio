@@ -1,0 +1,9 @@
+.git/
+.opencode/
+node_modules/
+*.md
+LICENSE
+.gitignore
+.dockerignore
+Dockerfile
+docker-compose.yml
