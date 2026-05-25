@@ -29,6 +29,8 @@ require_once __DIR__ . '/layouts/header.php';
                 <span class="dot">·</span>
                 <span>JavaScript</span>
                 <span class="dot">·</span>
+                 <span>Php</span>
+                <span class="dot">·</span>
                 <span>Python</span>
                 <span class="dot">·</span>
                 <span>IA</span>

@@ -854,8 +854,56 @@ a.meta-value:hover { color: var(--accent); }
     border-color: rgba(255,255,255,0.15);
 }
 
+.thumb-cordel {
+  background: linear-gradient(135deg, rgba(180, 83, 9, 0.25), rgba(217, 119, 6, 0.15)),
+    repeating-linear-gradient(0deg, transparent, transparent 28px, rgba(255,255,255,0.04) 28px, rgba(255,255,255,0.04) 29px);
+  position: relative;
+}
+.thumb-cordel::after {
+  content: '📜';
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2.5rem;
+  opacity: 0.6;
+}
+
+.thumb-android {
+  background: linear-gradient(135deg, rgba(34, 197, 94, 0.2), rgba(74, 222, 128, 0.1)),
+    radial-gradient(circle at 75% 75%, rgba(34, 197, 94, 0.08), transparent 40%);
+  position: relative;
+}
+.thumb-android::after {
+  content: '🤖';
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2.5rem;
+  opacity: 0.6;
+}
+
+.thumb-login {
+  background: linear-gradient(135deg, rgba(59, 130, 246, 0.2), rgba(96, 165, 250, 0.1)),
+    radial-gradient(circle at 50% 50%, rgba(59, 130, 246, 0.06), transparent 50%);
+  position: relative;
+}
+.thumb-login::after {
+  content: '🔐';
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2.5rem;
+  opacity: 0.6;
+}
+
 .thumb-1::after {
-    color: rgba(255,255,255,0.45);
+  color: rgba(255,255,255,0.45);
 }
 
 .thumb-2 {

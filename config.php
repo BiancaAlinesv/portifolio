@@ -56,6 +56,30 @@ return [
 
     'projects' => [
         [
+            'name' => 'Projeto Cordel',
+            'desc' => 'Página inspirada na literatura de cordel brasileira, com layout narrativo, tipografia expressiva e design que valoriza a cultura popular.',
+            'tags' => ['HTML', 'CSS'],
+            'url' => 'https://biancaalinesv.github.io/projeto_cordel/',
+            'github' => 'https://github.com/BiancaAlinesv/projeto_cordel',
+            'thumb' => 'thumb-cordel',
+        ],
+        [
+            'name' => 'Projeto Android',
+            'desc' => 'Página informativa sobre o mascote do Android, com estrutura semântica, imagens ilustrativas e design responsivo construído durante o curso de HTML e CSS.',
+            'tags' => ['HTML', 'CSS'],
+            'url' => 'https://biancaalinesv.github.io/projeto-android/',
+            'github' => 'https://github.com/BiancaAlinesv/projeto-android',
+            'thumb' => 'thumb-android',
+        ],
+        [
+            'name' => 'Projeto Login',
+            'desc' => 'Tela de login com design moderno e responsivo, explorando formulários, validação visual e boas práticas de interface para autenticação de usuários.',
+            'tags' => ['HTML', 'CSS'],
+            'url' => 'https://biancaalinesv.github.io/projeto-login/',
+            'github' => 'https://github.com/BiancaAlinesv/projeto-login',
+            'thumb' => 'thumb-login',
+        ],
+        [
             'name' => 'Landing page de alto impacto',
             'desc' => 'Design responsivo e foco em conversão, com navegação rápida, tipografia refinada e apresentação profissional de marca pessoal.',
             'tags' => ['HTML', 'CSS', 'JavaScript'],
