@@ -799,59 +799,172 @@ a.meta-value:hover { color: var(--accent); }
     border-top: 1px solid var(--line);
 }
 
-.projects-list {
-    display: flex;
-    flex-direction: column;
-    gap: 0;
+.carousel {
+  position: relative;
+  overflow: hidden;
 }
 
-.project-item {
-    display: grid;
-    grid-template-columns: 60px 280px 1fr;
-    gap: 40px;
-    align-items: start;
-    padding: 48px 0;
-    border-bottom: 1px solid var(--line);
-    transition: transform 0.35s var(--ease), background 0.35s var(--ease), box-shadow 0.35s var(--ease);
-    position: relative;
-    overflow: hidden;
-    background: rgba(255,255,255,0.01);
+.carousel-track {
+  display: flex;
+  transition: transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  will-change: transform;
 }
 
-.project-item::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(120deg, transparent, rgba(168, 85, 247, 0.08), transparent);
-    opacity: 0;
-    transition: opacity 0.35s ease;
-    pointer-events: none;
+.carousel-page {
+  min-width: 100%;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 40px;
+  padding: 48px 0;
+  box-sizing: border-box;
+  align-items: start;
 }
 
-.project-item:hover {
-    transform: translateY(-8px);
-    box-shadow: 0 28px 80px rgba(0, 0, 0, 0.18);
-    border-color: rgba(255,255,255,0.15);
+.carousel-card {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 24px;
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  background: rgba(255,255,255,0.01);
+  transition: transform 0.35s var(--ease), border-color 0.35s var(--ease), box-shadow 0.35s var(--ease);
 }
 
-.project-item:hover::before {
-    opacity: 1;
+.carousel-card:hover {
+  transform: translateY(-6px);
+  border-color: rgba(255,255,255,0.15);
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
 }
 
-.project-thumb {
-    width: 100%;
-    aspect-ratio: 16/10;
-    border-radius: 18px;
-    background: linear-gradient(135deg, rgba(124, 58, 237, 0.18), rgba(168, 85, 247, 0.12));
-    border: 1px solid rgba(255,255,255,0.08);
-    overflow: hidden;
-    transition: transform 0.35s var(--ease), border-color 0.35s ease, box-shadow 0.35s ease;
-    box-shadow: inset 0 0 0 1px rgba(255,255,255,0.03);
+.carousel-card .project-number {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  color: var(--text-dim);
+  letter-spacing: 0.08em;
 }
 
-.project-item:hover .project-thumb {
-    transform: scale(1.02);
-    border-color: rgba(255,255,255,0.15);
+.carousel-card .project-thumb {
+  width: 100%;
+  aspect-ratio: 16/10;
+  border-radius: 14px;
+  background: linear-gradient(135deg, rgba(124, 58, 237, 0.18), rgba(168, 85, 247, 0.12));
+  border: 1px solid rgba(255,255,255,0.08);
+  overflow: hidden;
+  transition: transform 0.35s var(--ease), border-color 0.35s ease;
+  box-shadow: inset 0 0 0 1px rgba(255,255,255,0.03);
+  position: relative;
+}
+
+.carousel-card:hover .project-thumb {
+  transform: scale(1.02);
+  border-color: rgba(255,255,255,0.15);
+}
+
+.carousel-card .project-body {
+  padding-top: 4px;
+}
+
+.carousel-card .project-name {
+  font-family: var(--font-display);
+  font-size: 1.3rem;
+  font-weight: 400;
+  font-style: italic;
+  color: var(--text);
+  margin-bottom: 8px;
+  letter-spacing: -0.01em;
+}
+
+.carousel-card .project-desc {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  line-height: 1.7;
+  margin-bottom: 14px;
+  font-weight: 300;
+}
+
+.carousel-card .project-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 16px;
+}
+
+.carousel-card .project-tags span {
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  letter-spacing: 0.08em;
+  padding: 3px 8px;
+  border-radius: 3px;
+  border: 1px solid var(--line);
+  color: var(--text-dim);
+  background: var(--surface);
+}
+
+.carousel-card .project-links {
+  display: flex;
+  gap: 16px;
+}
+
+.carousel-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 10;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: 1px solid var(--line);
+  background: var(--surface);
+  color: var(--text);
+  font-size: 1.1rem;
+  cursor: pointer;
+  transition: background 0.3s, border-color 0.3s, color 0.3s, transform 0.3s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.carousel-btn:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+  background: rgba(168, 85, 247, 0.08);
+}
+
+.carousel-btn:active {
+  transform: translateY(-50%) scale(0.95);
+}
+
+.carousel-prev { left: -8px; }
+.carousel-next { right: -8px; }
+
+.carousel-dots {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  padding: 20px 0 0;
+}
+
+.carousel-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  border: 1px solid var(--line);
+  background: transparent;
+  cursor: pointer;
+  transition: background 0.3s, border-color 0.3s, transform 0.3s;
+  padding: 0;
+}
+
+.carousel-dot:hover {
+  border-color: var(--accent);
+  transform: scale(1.2);
+}
+
+.carousel-dot.active {
+  background: var(--accent);
+  border-color: var(--accent);
+  transform: scale(1.3);
 }
 
 .thumb-cordel {
@@ -902,86 +1015,189 @@ a.meta-value:hover { color: var(--accent); }
   opacity: 0.6;
 }
 
-.thumb-1::after {
-  color: rgba(255,255,255,0.45);
+.thumb-social {
+  background: linear-gradient(135deg, rgba(236, 72, 153, 0.2), rgba(244, 114, 182, 0.1)),
+    radial-gradient(circle at 30% 70%, rgba(236, 72, 153, 0.08), transparent 40%);
+  position: relative;
+}
+.thumb-social::after {
+  content: '🤝';
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2.5rem;
+  opacity: 0.6;
 }
 
-.thumb-2 {
-    background: radial-gradient(circle at 20% 30%, rgba(168, 85, 247, 0.08), transparent 20%),
-                radial-gradient(circle at 85% 15%, rgba(216, 180, 254, 0.06), transparent 15%),
-                repeating-linear-gradient(
-                    0deg, transparent, transparent 20px,
-                    rgba(255,255,255,0.03) 20px, rgba(255,255,255,0.03) 21px
-                ),
-                repeating-linear-gradient(
-                    90deg, transparent, transparent 20px,
-                    rgba(255,255,255,0.03) 20px, rgba(255,255,255,0.03) 21px
-                );
+.thumb-doces {
+  background: linear-gradient(135deg, rgba(251, 191, 36, 0.2), rgba(245, 158, 11, 0.1)),
+    radial-gradient(circle at 70% 30%, rgba(251, 191, 36, 0.08), transparent 40%);
+  position: relative;
 }
-.project-number {
-    font-family: var(--font-mono);
-    font-size: 0.7rem;
-    color: var(--text-dim);
-    letter-spacing: 0.08em;
-    padding-top: 8px;
+.thumb-doces::after {
+  content: '🧁';
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2.5rem;
+  opacity: 0.6;
 }
 
-.project-body {
-    padding-top: 4px;
+.thumb-php {
+  background: linear-gradient(135deg, rgba(79, 93, 149, 0.25), rgba(119, 135, 189, 0.12)),
+    radial-gradient(circle at 60% 60%, rgba(79, 93, 149, 0.08), transparent 40%);
+  position: relative;
+}
+.thumb-php::after {
+  content: '🐘';
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2.5rem;
+  opacity: 0.6;
 }
 
-.project-name {
-    font-family: var(--font-display);
-    font-size: 1.6rem;
-    font-weight: 400;
-    font-style: italic;
-    color: var(--text);
-    margin-bottom: 10px;
-    letter-spacing: -0.01em;
+.thumb-python {
+  background: linear-gradient(135deg, rgba(59, 130, 246, 0.15), rgba(34, 197, 94, 0.1)),
+    radial-gradient(circle at 40% 60%, rgba(59, 130, 246, 0.06), transparent 50%);
+  position: relative;
+}
+.thumb-python::after {
+  content: '🐍';
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2.5rem;
+  opacity: 0.6;
 }
 
-.project-desc {
-    font-size: 0.92rem;
-    color: var(--text-muted);
-    line-height: 1.7;
-    margin-bottom: 18px;
-    font-weight: 300;
+.thumb-htmlcss {
+  background: linear-gradient(135deg, rgba(228, 77, 38, 0.18), rgba(21, 114, 182, 0.12)),
+    radial-gradient(circle at 50% 50%, rgba(228, 77, 38, 0.06), transparent 50%);
+  position: relative;
+}
+.thumb-htmlcss::after {
+  content: '🎨';
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2.5rem;
+  opacity: 0.6;
 }
 
-.project-tags {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 8px;
-    margin-bottom: 22px;
+.thumb-portfolio {
+  background: linear-gradient(135deg, rgba(168, 85, 247, 0.2), rgba(139, 92, 246, 0.1)),
+    radial-gradient(circle at 50% 50%, rgba(168, 85, 247, 0.08), transparent 40%);
+  position: relative;
 }
-
-.project-tags span {
-    font-family: var(--font-mono);
-    font-size: 0.7rem;
-    letter-spacing: 0.08em;
-    padding: 4px 10px;
-    border-radius: 3px;
-    border: 1px solid var(--line);
-    color: var(--text-dim);
-    background: var(--surface);
-}
-
-.project-links {
-    display: flex;
-    gap: 20px;
+.thumb-portfolio::after {
+  content: '⚡';
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2.5rem;
+  opacity: 0.6;
 }
 
 .plink {
-    font-size: 0.85rem;
-    font-weight: 500;
-    color: var(--accent);
-    text-decoration: none;
-    transition: opacity 0.2s;
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: var(--accent);
+  text-decoration: none;
+  transition: opacity 0.2s;
 }
 
 .plink:hover { opacity: 0.7; }
 
 .project-placeholder { opacity: 0.45; }
+
+.projects-more {
+  display: flex;
+  justify-content: center;
+  padding-top: 48px;
+}
+
+.projects-page {
+  padding: calc(var(--nav-h) + 40px) 0 var(--section-gap);
+  min-height: 100vh;
+}
+
+.back-link {
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  color: var(--text-dim);
+  text-decoration: none;
+  letter-spacing: 0.06em;
+  transition: color 0.3s;
+  display: inline-block;
+  margin-bottom: 20px;
+}
+
+.back-link:hover { color: var(--accent); }
+
+.section-subtitle {
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  color: var(--text-dim);
+  letter-spacing: 0.06em;
+  margin-top: 8px;
+}
+
+.pagination {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  padding-top: 56px;
+  border-top: 1px solid var(--line);
+  margin-top: 48px;
+}
+
+.pagination-numbers {
+  display: flex;
+  gap: 6px;
+}
+
+.pagination-num,
+.pagination-link {
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  letter-spacing: 0.04em;
+  text-decoration: none;
+  color: var(--text-dim);
+  border: 1px solid var(--line);
+  padding: 8px 14px;
+  border-radius: 3px;
+  transition: color 0.3s, border-color 0.3s, background 0.3s;
+}
+
+.pagination-num:hover,
+.pagination-link:hover {
+  color: var(--accent);
+  border-color: var(--accent);
+}
+
+.pagination-num.active {
+  color: var(--bg);
+  background: var(--accent);
+  border-color: var(--accent);
+}
+
+.pagination-num.active:hover {
+  color: var(--bg);
+}
 
 /* ============================================================
    SKILLS
@@ -1269,10 +1485,17 @@ letter-spacing: 0.06em;
     max-width: 100% !important;
   }
 
-    .project-item {
-        grid-template-columns: 48px 200px 1fr;
-        gap: 28px;
-    }
+.carousel-page {
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+  }
+
+  .carousel-card {
+    padding: 18px;
+  }
+
+  .carousel-prev { left: 0; }
+  .carousel-next { right: 0; }
 
     .contact-grid {
         grid-template-columns: 1fr;
@@ -1325,15 +1548,29 @@ letter-spacing: 0.06em;
         gap: 12px;
     }
 
-    .project-item {
-        grid-template-columns: 1fr;
-        gap: 16px;
-        padding: 36px 0;
-    }
+.carousel-page {
+    grid-template-columns: 1fr;
+    gap: 20px;
+    padding: 28px 0;
+  }
 
-    .project-number {
-        display: none;
-    }
+  .carousel-card {
+    padding: 16px;
+  }
+
+  .carousel-card .project-name {
+    font-size: 1.1rem;
+  }
+
+  .carousel-card .project-number {
+    display: none;
+  }
+
+  .carousel-btn {
+    width: 36px;
+    height: 36px;
+    font-size: 0.9rem;
+  }
 
     .contact-grid {
         grid-template-columns: 1fr;

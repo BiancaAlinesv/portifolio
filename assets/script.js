@@ -216,8 +216,87 @@ BIANCA ALINE — PORTFOLIO SCRIPT
   }
 
 
-  /* =========================================================
-  SMOOTH SCROLL — LINKS DE NAVEGAÇÃO
+/* =========================================================
+CARROSSEL DE PROJETOS
+========================================================= */
+const carousels = document.querySelectorAll('[data-carousel]');
+
+carousels.forEach(carousel => {
+  const track = carousel.querySelector('.carousel-track');
+  const slides = carousel.querySelectorAll('[data-slide]');
+  const prevBtn = carousel.querySelector('[data-carousel-prev]');
+  const nextBtn = carousel.querySelector('[data-carousel-next]');
+  const dotsContainer = carousel.querySelector('[data-carousel-dots]');
+
+  if (!track || slides.length === 0) return;
+
+  let current = 0;
+  const total = slides.length;
+  let autoplayTimer = null;
+  let startX = 0;
+  let isDragging = false;
+
+  slides.forEach((_, i) => {
+    const dot = document.createElement('button');
+    dot.classList.add('carousel-dot');
+    dot.setAttribute('aria-label', `Ir para projeto ${i + 1}`);
+    if (i === 0) dot.classList.add('active');
+    dot.addEventListener('click', () => goTo(i));
+    dotsContainer.appendChild(dot);
+  });
+
+  const dots = dotsContainer.querySelectorAll('.carousel-dot');
+
+  function goTo(index) {
+    current = ((index % total) + total) % total;
+    track.style.transform = `translateX(-${current * 100}%)`;
+    dots.forEach((d, i) => d.classList.toggle('active', i === current));
+  }
+
+  function next() { goTo(current + 1); }
+  function prev() { goTo(current - 1); }
+
+  if (prevBtn) prevBtn.addEventListener('click', () => { prev(); resetAutoplay(); });
+  if (nextBtn) nextBtn.addEventListener('click', () => { next(); resetAutoplay(); });
+
+  function startAutoplay() {
+    autoplayTimer = setInterval(next, 5000);
+  }
+
+  function resetAutoplay() {
+    clearInterval(autoplayTimer);
+    startAutoplay();
+  }
+
+  carousel.addEventListener('mouseenter', () => clearInterval(autoplayTimer));
+  carousel.addEventListener('mouseleave', startAutoplay);
+
+  track.addEventListener('touchstart', (e) => {
+    startX = e.touches[0].clientX;
+    isDragging = true;
+  }, { passive: true });
+
+  track.addEventListener('touchend', (e) => {
+    if (!isDragging) return;
+    isDragging = false;
+    const diff = startX - e.changedTouches[0].clientX;
+    if (Math.abs(diff) > 50) {
+      diff > 0 ? next() : prev();
+      resetAutoplay();
+    }
+  }, { passive: true });
+
+  track.addEventListener('keydown', (e) => {
+    if (e.key === 'ArrowLeft') { prev(); resetAutoplay(); }
+    if (e.key === 'ArrowRight') { next(); resetAutoplay(); }
+  });
+
+  startAutoplay();
+});
+
+
+/* =========================================================
+SMOOTH SCROLL — LINKS DE NAVEGAÇÃO
   ========================================================= */
   document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     anchor.addEventListener('click', function (e) {

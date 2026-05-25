@@ -4,11 +4,13 @@ declare(strict_types=1);
 
 $c = require_once __DIR__ . '/../config.php';
 
+require_once __DIR__ . '/../github-projects.php';
+
 $site = $c['site'];
 $person = $c['person'];
 $social = $c['social'];
 $skills = $c['skills'];
-$projects = $c['projects'];
+$projects = get_projects();
 $nav = $c['nav'];
 
 $currentYear = date('Y');

@@ -9,7 +9,7 @@ declare(strict_types=1); ?>
     <header>
         <nav class="navbar" id="navbar" aria-label="Navegação principal">
             <div class="nav-inner">
-                <a href="#home" class="nav-logo">
+                <a href="index.php#home" class="nav-logo">
                     <span class="logo-bracket">{</span>
                     <span class="logo-name">B.N</span>
                     <span class="logo-bracket">}</span>
