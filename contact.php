@@ -12,11 +12,12 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
 
 $nome = trim($_POST['name'] ?? '');
 $email = trim($_POST['email'] ?? '');
+$telefone = trim($_POST['phone'] ?? '');
 $mensagem = trim($_POST['message'] ?? '');
 
 if ($nome === '' || $email === '' || $mensagem === '') {
     http_response_code(422);
-    echo json_encode(['success' => false, 'message' => 'Preencha todos os campos.']);
+    echo json_encode(['success' => false, 'message' => 'Preencha todos os campos obrigatórios.']);
     exit;
 }
 
@@ -26,13 +27,22 @@ if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
     exit;
 }
 
+if ($telefone !== '') {
+    $digits = preg_replace('/\D/', '', $telefone);
+    if (strlen($digits) < 10 || strlen($digits) > 11) {
+        http_response_code(422);
+        echo json_encode(['success' => false, 'message' => 'Telefone inválido. Informe DDD + número.']);
+        exit;
+    }
+}
+
 require_once __DIR__ . '/smtp-config.php';
 require_once __DIR__ . '/smtp-mailer.php';
 require_once __DIR__ . '/layouts/email_template.php';
 
 $assunto = "Nova mensagem de {$nome} — Portfólio";
 $data = date('d/m/Y \à\s H:i');
-$htmlBody = buildEmailHtml($nome, $email, $mensagem, $data);
+$htmlBody = buildEmailHtml($nome, $email, $telefone, $mensagem, $data);
 
 $result = smtp_send_mail([
     'host' => $smtpConfig['host'],

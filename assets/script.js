@@ -164,22 +164,52 @@ BIANCA ALINE — PORTFOLIO SCRIPT
       : 'var(--accent)';
   }
 
-  function isValidEmail(email) {
-    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
-  }
+function isValidEmail(email) {
+  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+}
 
-  if (contactForm) {
-    contactForm.addEventListener('submit', function (e) {
-      e.preventDefault();
+const phoneInput = document.getElementById('phone');
 
-      const name = document.getElementById('name').value.trim();
-      const email = document.getElementById('email').value.trim();
-      const message = document.getElementById('message').value.trim();
+function maskPhone(value) {
+  const digits = value.replace(/\D/g, '').slice(0, 11);
+  if (digits.length === 0) return '';
+  if (digits.length <= 2) return '(' + digits;
+  if (digits.length <= 7) return '(' + digits.slice(0, 2) + ') ' + digits.slice(2);
+  return '(' + digits.slice(0, 2) + ') ' + digits.slice(2, 7) + '-' + digits.slice(7);
+}
 
-      if (!name || !email || !message) {
-        showFeedback('Preencha todos os campos, por favor.', 'error');
+if (phoneInput) {
+  phoneInput.addEventListener('input', function () {
+    const cursorPos = this.selectionStart;
+    const beforeLen = this.value.length;
+    this.value = maskPhone(this.value);
+    const afterLen = this.value.length;
+    const newPos = cursorPos + (afterLen - beforeLen);
+    this.setSelectionRange(newPos, newPos);
+  });
+}
+
+if (contactForm) {
+  contactForm.addEventListener('submit', function (e) {
+    e.preventDefault();
+
+    const name = document.getElementById('name').value.trim();
+    const email = document.getElementById('email').value.trim();
+    const phone = document.getElementById('phone') ? document.getElementById('phone').value.trim() : '';
+    const message = document.getElementById('message').value.trim();
+
+    if (!name || !email || !message) {
+      showFeedback('Preencha todos os campos obrigatórios, por favor.', 'error');
+      return;
+    }
+
+    if (phone) {
+      const phoneDigits = phone.replace(/\D/g, '');
+      if (phoneDigits.length < 10 || phoneDigits.length > 11) {
+        showFeedback('Telefone inválido. Use o formato (00) 00000-0000.', 'error');
         return;
       }
+    }
 
       if (!isValidEmail(email)) {
         showFeedback('E-mail inválido.', 'error');

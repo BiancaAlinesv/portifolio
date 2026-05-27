@@ -1,12 +1,26 @@
 <?php
 declare(strict_types=1);
 
-function buildEmailHtml(string $nome, string $email, string $mensagem, string $data): string
+function buildEmailHtml(string $nome, string $email, string $telefone, string $mensagem, string $data): string
 {
     $escNome = htmlspecialchars($nome, ENT_QUOTES, 'UTF-8');
     $escEmail = htmlspecialchars($email, ENT_QUOTES, 'UTF-8');
+    $escTelefone = htmlspecialchars($telefone, ENT_QUOTES, 'UTF-8');
     $escMensagem = nl2br(htmlspecialchars($mensagem, ENT_QUOTES, 'UTF-8'));
     $escData = htmlspecialchars($data, ENT_QUOTES, 'UTF-8');
+
+    $telefoneRow = '';
+    if ($telefone !== '') {
+        $telefoneRow = <<<ROW
+        <!-- Telefone -->
+        <tr>
+            <td style="padding:12px 24px;border-bottom:1px solid rgba(255,255,255,0.05);">
+                <span style="font-family:'Courier New',monospace;font-size:9px;color:#8b7fc3;letter-spacing:0.12em;text-transform:uppercase;display:block;margin-bottom:4px;">Telefone</span>
+                <span style="font-size:14px;color:#f0ece4;font-weight:500;">{$escTelefone}</span>
+            </td>
+        </tr>
+ROW;
+    }
 
     return <<<HTML
 <!DOCTYPE html>
@@ -81,13 +95,14 @@ function buildEmailHtml(string $nome, string $email, string $mensagem, string $d
 </td>
 </tr>
 <!-- Email -->
-<tr>
-<td style="padding:12px 24px;border-bottom:1px solid rgba(255,255,255,0.05);">
-<span style="font-family:'Courier New',monospace;font-size:9px;color:#8b7fc3;letter-spacing:0.12em;text-transform:uppercase;display:block;margin-bottom:4px;">Email</span>
-<a href="mailto:{$escEmail}" style="font-size:14px;color:#a855f7;text-decoration:none;">{$escEmail}</a>
-</td>
-</tr>
-<!-- Mensagem -->
+            <tr>
+            <td style="padding:12px 24px;border-bottom:1px solid rgba(255,255,255,0.05);">
+                <span style="font-family:'Courier New',monospace;font-size:9px;color:#8b7fc3;letter-spacing:0.12em;text-transform:uppercase;display:block;margin-bottom:4px;">Email</span>
+                <a href="mailto:{$escEmail}" style="font-size:14px;color:#a855f7;text-decoration:none;">{$escEmail}</a>
+            </td>
+            </tr>
+            {$telefoneRow}
+            <!-- Mensagem -->
 <tr>
 <td style="padding:12px 24px 20px;">
 <span style="font-family:'Courier New',monospace;font-size:9px;color:#8b7fc3;letter-spacing:0.12em;text-transform:uppercase;display:block;margin-bottom:8px;">Mensagem</span>
