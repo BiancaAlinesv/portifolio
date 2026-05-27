@@ -150,25 +150,64 @@ BIANCA ALINE — PORTFOLIO SCRIPT
   skillRows.forEach(row => skillObserver.observe(row));
 
 
-  /* =========================================================
-  FORMULÁRIO DE CONTATO
-  ========================================================= */
-  const contactForm = document.getElementById('contactForm');
-  const formFeedback = document.getElementById('formFeedback');
+/* =========================================================
+FORMULÁRIO DE CONTATO — VALIDAÇÃO COMPLETA
+========================================================= */
+const contactForm = document.getElementById('contactForm');
+const formFeedback = document.getElementById('formFeedback');
 
-  function showFeedback(msg, type) {
-    if (!formFeedback) return;
-    formFeedback.textContent = msg;
-    formFeedback.style.color = type === 'error'
-      ? '#ff6b6b'
-      : 'var(--accent)';
-  }
+const LIMITS = {
+  nameMin: 2,
+  nameMax: 100,
+  emailMax: 120,
+  phoneMin: 10,
+  phoneMax: 11,
+  msgMin: 10,
+  msgMax: 2000,
+  rateSeconds: 10
+};
+
+function showFeedback(msg, type) {
+  if (!formFeedback) return;
+  formFeedback.textContent = msg;
+  formFeedback.style.color = type === 'error' ? '#ff6b6b' : 'var(--accent)';
+}
+
+function showFieldError(id, msg) {
+  const el = document.getElementById(id);
+  if (!el) return;
+  el.textContent = msg;
+  el.style.opacity = msg ? '1' : '0';
+}
+
+function clearAllErrors() {
+  showFieldError('nameError', '');
+  showFieldError('emailError', '');
+  showFieldError('phoneError', '');
+  showFieldError('messageError', '');
+  showFeedback('', '');
+}
+
+function sanitize(text) {
+  const div = document.createElement('div');
+  div.textContent = text;
+  return div.innerHTML;
+}
+
+function hasXSS(text) {
+  const dangerous = /<\s*\/?\s*(script|iframe|object|embed|form|input|link|meta|style|base|body|img|svg|on\w+)\b[^>]*>/i;
+  const events = /\bon\w+\s*=/i;
+  const jsProto = /javascript\s*:/i;
+  return dangerous.test(text) || events.test(text) || jsProto.test(text);
+}
 
 function isValidEmail(email) {
-  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+  return /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email) && email.length <= LIMITS.emailMax;
 }
 
 const phoneInput = document.getElementById('phone');
+const messageInput = document.getElementById('message');
+const charCounter = document.getElementById('charCounter');
 
 function maskPhone(value) {
   const digits = value.replace(/\D/g, '').slice(0, 11);
@@ -189,61 +228,146 @@ if (phoneInput) {
   });
 }
 
+if (messageInput && charCounter) {
+  messageInput.addEventListener('input', function () {
+    const len = this.value.length;
+    charCounter.textContent = len + ' / ' + LIMITS.msgMax;
+    if (len > LIMITS.msgMax) {
+      charCounter.style.color = '#ff6b6b';
+    } else if (len > LIMITS.msgMax * 0.9) {
+      charCounter.style.color = '#f59e0b';
+    } else {
+      charCounter.style.color = 'var(--text-dim)';
+    }
+  });
+}
+
+function validateName(name) {
+  if (!name) return 'Informe seu nome.';
+  if (name.length < LIMITS.nameMin) return 'Nome deve ter pelo menos ' + LIMITS.nameMin + ' caracteres.';
+  if (name.length > LIMITS.nameMax) return 'Nome deve ter no máximo ' + LIMITS.nameMax + ' caracteres.';
+  if (hasXSS(name)) return 'Nome contém conteúdo não permitido.';
+  if (!/^[a-zA-ZÀ-ÿ\s'.-]+$/.test(name)) return 'Nome deve conter apenas letras e espaços.';
+  return '';
+}
+
+function validateEmail(email) {
+  if (!email) return 'Informe seu e-mail.';
+  if (email.length > LIMITS.emailMax) return 'E-mail muito longo.';
+  if (!isValidEmail(email)) return 'E-mail inválido.';
+  if (hasXSS(email)) return 'E-mail contém conteúdo não permitido.';
+  return '';
+}
+
+function validatePhone(phone) {
+  if (!phone) return '';
+  const digits = phone.replace(/\D/g, '');
+  if (digits.length < LIMITS.phoneMin) return 'Telefone deve ter DDD + número.';
+  if (digits.length > LIMITS.phoneMax) return 'Telefone com muitos dígitos.';
+  return '';
+}
+
+function validateMessage(message) {
+  if (!message) return 'Escreva uma mensagem.';
+  if (message.length < LIMITS.msgMin) return 'Mensagem deve ter pelo menos ' + LIMITS.msgMin + ' caracteres.';
+  if (message.length > LIMITS.msgMax) return 'Mensagem deve ter no máximo ' + LIMITS.msgMax + ' caracteres.';
+  if (hasXSS(message)) return 'Mensagem contém conteúdo não permitido.';
+  return '';
+}
+
+function canSubmit() {
+  const last = sessionStorage.getItem('lastContactSubmit');
+  if (!last) return true;
+  const elapsed = (Date.now() - parseInt(last, 10)) / 1000;
+  return elapsed >= LIMITS.rateSeconds;
+}
+
+function rateWaitTime() {
+  const last = sessionStorage.getItem('lastContactSubmit');
+  if (!last) return 0;
+  const elapsed = (Date.now() - parseInt(last, 10)) / 1000;
+  return Math.max(0, Math.ceil(LIMITS.rateSeconds - elapsed));
+}
+
 if (contactForm) {
+  const formFields = contactForm.querySelectorAll('input, textarea');
+  formFields.forEach(function (field) {
+    field.addEventListener('input', function () {
+      this.classList.remove('field-invalid');
+      const errorId = this.id + 'Error';
+      showFieldError(errorId, '');
+    });
+  });
+
   contactForm.addEventListener('submit', function (e) {
     e.preventDefault();
+    clearAllErrors();
 
-    const name = document.getElementById('name').value.trim();
-    const email = document.getElementById('email').value.trim();
-    const phone = document.getElementById('phone') ? document.getElementById('phone').value.trim() : '';
-    const message = document.getElementById('message').value.trim();
+    const nameEl = document.getElementById('name');
+    const emailEl = document.getElementById('email');
+    const phoneEl = document.getElementById('phone');
+    const messageEl = document.getElementById('message');
 
-    if (!name || !email || !message) {
-      showFeedback('Preencha todos os campos obrigatórios, por favor.', 'error');
+    const name = nameEl.value.trim();
+    const email = emailEl.value.trim();
+    const phone = phoneEl ? phoneEl.value.trim() : '';
+    const message = messageEl.value.trim();
+
+    let hasError = false;
+
+    const nameErr = validateName(name);
+    if (nameErr) { showFieldError('nameError', nameErr); nameEl.classList.add('field-invalid'); hasError = true; }
+
+    const emailErr = validateEmail(email);
+    if (emailErr) { showFieldError('emailError', emailErr); emailEl.classList.add('field-invalid'); hasError = true; }
+
+    const phoneErr = validatePhone(phone);
+    if (phoneErr) { showFieldError('phoneError', phoneErr); phoneEl.classList.add('field-invalid'); hasError = true; }
+
+    const msgErr = validateMessage(message);
+    if (msgErr) { showFieldError('messageError', msgErr); messageEl.classList.add('field-invalid'); hasError = true; }
+
+    if (hasError) {
+      showFeedback('Corrija os campos destacados acima.', 'error');
       return;
     }
 
-    if (phone) {
-      const phoneDigits = phone.replace(/\D/g, '');
-      if (phoneDigits.length < 10 || phoneDigits.length > 11) {
-        showFeedback('Telefone inválido. Use o formato (00) 00000-0000.', 'error');
-        return;
-      }
+    if (!canSubmit()) {
+      const wait = rateWaitTime();
+      showFeedback('Aguarde ' + wait + ' segundo' + (wait > 1 ? 's' : '') + ' antes de enviar novamente.', 'error');
+      return;
     }
 
-      if (!isValidEmail(email)) {
-        showFeedback('E-mail inválido.', 'error');
-        return;
+    const btn = contactForm.querySelector('button[type="submit"]');
+    btn.disabled = true;
+    btn.querySelector('.btn-text').textContent = 'Enviando…';
+
+    const formData = new FormData(contactForm);
+
+    fetch('contact.php', {
+      method: 'POST',
+      body: formData
+    })
+    .then(res => res.json())
+    .then(data => {
+      if (data.success) {
+        showFeedback(data.message, 'success');
+        contactForm.reset();
+        sessionStorage.setItem('lastContactSubmit', Date.now().toString());
+        if (charCounter) charCounter.textContent = '0 / ' + LIMITS.msgMax;
+      } else {
+        showFeedback(data.message, 'error');
       }
-
-      const btn = contactForm.querySelector('button[type="submit"]');
-      btn.disabled = true;
-      btn.querySelector('.btn-text').textContent = 'Enviando…';
-
-      const formData = new FormData(contactForm);
-
-      fetch('contact.php', {
-        method: 'POST',
-        body: formData
-      })
-        .then(res => res.json())
-        .then(data => {
-          if (data.success) {
-            showFeedback(data.message, 'success');
-            contactForm.reset();
-          } else {
-            showFeedback(data.message, 'error');
-          }
-        })
-        .catch(() => {
-          showFeedback('Erro de conexão. Tente novamente.', 'error');
-        })
-        .finally(() => {
-          btn.disabled = false;
-          btn.querySelector('.btn-text').textContent = 'Enviar Mensagem';
-        });
+    })
+    .catch(() => {
+      showFeedback('Erro de conexão. Tente novamente.', 'error');
+    })
+    .finally(() => {
+      btn.disabled = false;
+      btn.querySelector('.btn-text').textContent = 'Enviar Mensagem';
     });
-  }
+  });
+}
 
 
 /* =========================================================

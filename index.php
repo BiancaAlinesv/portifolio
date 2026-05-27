@@ -199,19 +199,26 @@ require_once __DIR__ . '/layouts/header.php';
       <form id="contactForm" class="contact-form" action="contact.php" method="POST" novalidate>
         <div class="form-field">
           <label for="name">Nome</label>
-          <input type="text" id="name" name="name" placeholder="Como posso te chamar?" required autocomplete="name">
+          <input type="text" id="name" name="name" placeholder="Como posso te chamar?" required autocomplete="name" minlength="2" maxlength="100">
+          <span class="field-error" id="nameError" aria-live="polite"></span>
         </div>
         <div class="form-field">
           <label for="email">Email</label>
-          <input type="email" id="email" name="email" placeholder="seu@email.com" required autocomplete="email">
+          <input type="email" id="email" name="email" placeholder="seu@email.com" required autocomplete="email" maxlength="120">
+          <span class="field-error" id="emailError" aria-live="polite"></span>
         </div>
         <div class="form-field">
           <label for="phone">Telefone</label>
-          <input type="tel" id="phone" name="phone" placeholder="(00) 00000-0000" autocomplete="tel">
+          <input type="tel" id="phone" name="phone" placeholder="(00) 00000-0000" autocomplete="tel" maxlength="15">
+          <span class="field-error" id="phoneError" aria-live="polite"></span>
         </div>
         <div class="form-field">
           <label for="message">Mensagem</label>
-          <textarea id="message" name="message" rows="5" placeholder="Sobre o que você quer conversar?" required></textarea>
+          <textarea id="message" name="message" rows="5" placeholder="Sobre o que você quer conversar?" required minlength="10" maxlength="2000"></textarea>
+          <div class="field-meta">
+            <span class="field-error" id="messageError" aria-live="polite"></span>
+            <span class="char-counter" id="charCounter">0 / 2000</span>
+          </div>
         </div>
         <button type="submit" class="btn btn-primary btn-full">
           <span class="btn-text">Enviar Mensagem</span>
