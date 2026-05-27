@@ -7,7 +7,7 @@ function smtp_send_mail(array $cfg): array
     $host = $cfg['host'];
     $port = $cfg['port'];
     $user = $cfg['user'];
-    $pass = $cfg['pass'];
+    $pass = str_replace('-', '', $cfg['pass']);
     $from = $cfg['from'];
     $fromName = $cfg['fromName'];
     $to = $cfg['to'];
@@ -17,19 +17,48 @@ function smtp_send_mail(array $cfg): array
     $replyTo = $cfg['replyTo'] ?? '';
     $replyToName = $cfg['replyToName'] ?? '';
 
-    $socket = @fsockopen($host, $port, $errno, $errstr, 15);
+    $context = stream_context_create([
+        'ssl' => [
+            'verify_peer' => false,
+            'verify_peer_name' => false,
+            'allow_self_signed' => true,
+        ],
+    ]);
+
+    if ($port === 465) {
+        $socket = @stream_socket_client(
+            "ssl://{$host}:{$port}",
+            $errno,
+            $errstr,
+            15,
+            STREAM_CLIENT_CONNECT,
+            $context
+        );
+    } else {
+        $socket = @fsockopen($host, $port, $errno, $errstr, 15);
+    }
+
     if (!$socket) {
         return ['success' => false, 'error' => "Conexão falhou: {$errstr} ({$errno})"];
     }
+
+    stream_set_timeout($socket, 15);
 
     $log = [];
 
     $read = function () use ($socket, &$log) {
         $response = '';
-        while ($line = fgets($socket, 515)) {
+        $startTime = time();
+        while (!feof($socket)) {
+            $line = @fgets($socket, 515);
+            if ($line === false) {
+                if (time() - $startTime > 10) break;
+                usleep(10000);
+                continue;
+            }
             $response .= $line;
             $log[] = '< ' . trim($line);
-            if (preg_match('/^\d{3}\s/', $line)) break;
+            if (preg_match('/^\d{3}[\s]/', $line)) break;
         }
         return $response;
     };
@@ -44,41 +73,47 @@ function smtp_send_mail(array $cfg): array
     $write("EHLO {$host}");
     $ehlo = $read();
 
-    $write("STARTTLS");
-    $starttls = $read();
+    if ($port !== 465) {
+        $write("STARTTLS");
+        $starttls = $read();
 
-    if (!stream_socket_enable_crypto($socket, true, STREAM_CRYPTO_METHOD_TLS_CLIENT)) {
-        fclose($socket);
-        return ['success' => false, 'error' => 'Falha ao iniciar TLS'];
+        if (!str_contains($starttls, '220')) {
+            fclose($socket);
+            return ['success' => false, 'error' => 'STARTTLS rejeitado: ' . $starttls];
+        }
+
+        if (!@stream_socket_enable_crypto($socket, true, STREAM_CRYPTO_METHOD_TLS_CLIENT)) {
+            fclose($socket);
+            return ['success' => false, 'error' => 'Falha ao iniciar TLS'];
+        }
+
+        $write("EHLO {$host}");
+        $read();
     }
 
-    $write("EHLO {$host}");
-    $ehlo2 = $read();
-
     $write("AUTH LOGIN");
-    $read();
+    $authPrompt = $read();
 
     $write(base64_encode($user));
-    $read();
+    $userResponse = $read();
 
     $write(base64_encode($pass));
     $authResponse = $read();
 
     if (!str_starts_with($authResponse, '235')) {
         fclose($socket);
-        return ['success' => false, 'error' => 'Autenticação falhou. Verifique a senha de app.'];
+        return ['success' => false, 'error' => 'Autenticação falhou. Verifique a senha de app.', 'log' => $log];
     }
 
     $write("MAIL FROM:<{$from}>");
-    $read();
+    $fromResponse = $read();
 
     $write("RCPT TO:<{$to}>");
-    $read();
+    $rcptResponse = $read();
 
     $write("DATA");
-    $read();
+    $dataPrompt = $read();
 
-    $boundary = md5((string) time());
     $subjectEncoded = "=?UTF-8?B?" . base64_encode($subject) . "?=";
 
     $headers = [];
@@ -107,5 +142,5 @@ function smtp_send_mail(array $cfg): array
         return ['success' => true];
     }
 
-    return ['success' => false, 'error' => 'Envio rejeitado pelo servidor.'];
+    return ['success' => false, 'error' => 'Envio rejeitado: ' . trim($dataResponse), 'log' => $log];
 }
