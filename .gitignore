@@ -1,4 +1,3 @@
 .opencode/
 .env
-smtp-config.php
 cache/

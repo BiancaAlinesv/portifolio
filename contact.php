@@ -30,7 +30,6 @@ require_once __DIR__ . '/smtp-config.php';
 require_once __DIR__ . '/smtp-mailer.php';
 require_once __DIR__ . '/layouts/email_template.php';
 
-$destino = $smtpConfig['to'];
 $assunto = "Nova mensagem de {$nome} — Portfólio";
 $data = date('d/m/Y \à\s H:i');
 $htmlBody = buildEmailHtml($nome, $email, $mensagem, $data);
@@ -40,9 +39,9 @@ $result = smtp_send_mail([
     'port' => $smtpConfig['port'],
     'user' => $smtpConfig['user'],
     'pass' => $smtpConfig['pass'],
-    'from' => $smtpConfig['user'],
-    'fromName' => 'Portfólio Bianca',
-    'to' => $destino,
+    'from' => $smtpConfig['from'],
+    'fromName' => $smtpConfig['fromName'],
+    'to' => $smtpConfig['to'],
     'toName' => 'Bianca Aline',
     'subject' => $assunto,
     'body' => $htmlBody,
