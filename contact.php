@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 header('Content-Type: application/json; charset=utf-8');
@@ -25,21 +26,31 @@ if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
     exit;
 }
 
-$destino = 'bianca.alinedev@gmail.com';
-$assunto = "=?UTF-8?B?" . base64_encode("Nova mensagem de {$nome} — Portfólio") . "?=";
-
+require_once __DIR__ . '/smtp-config.php';
+require_once __DIR__ . '/smtp-mailer.php';
 require_once __DIR__ . '/layouts/email_template.php';
+
+$destino = $smtpConfig['to'];
+$assunto = "Nova mensagem de {$nome} — Portfólio";
 $data = date('d/m/Y \à\s H:i');
 $htmlBody = buildEmailHtml($nome, $email, $mensagem, $data);
 
-$headers  = "From: Portfólio <bianca.alinedev@gmail.com>\r\n";
-$headers .= "Reply-To: {$email}\r\n";
-$headers .= "MIME-Version: 1.0\r\n";
-$headers .= "Content-Type: text/html; charset=UTF-8\r\n";
+$result = smtp_send_mail([
+    'host' => $smtpConfig['host'],
+    'port' => $smtpConfig['port'],
+    'user' => $smtpConfig['user'],
+    'pass' => $smtpConfig['pass'],
+    'from' => $smtpConfig['user'],
+    'fromName' => 'Portfólio Bianca',
+    'to' => $destino,
+    'toName' => 'Bianca Aline',
+    'subject' => $assunto,
+    'body' => $htmlBody,
+    'replyTo' => $email,
+    'replyToName' => $nome,
+]);
 
-$enviado = mail($destino, $assunto, $htmlBody, $headers);
-
-if ($enviado) {
+if ($result['success']) {
     echo json_encode(['success' => true, 'message' => 'Mensagem enviada com sucesso!']);
 } else {
     http_response_code(500);
