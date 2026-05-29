@@ -177,7 +177,11 @@ function showFieldError(id, msg) {
   const el = document.getElementById(id);
   if (!el) return;
   el.textContent = msg;
-  el.style.opacity = msg ? '1' : '0';
+  if (msg) {
+    el.classList.add('visible');
+  } else {
+    el.classList.remove('visible');
+  }
 }
 
 function clearAllErrors() {
@@ -232,12 +236,11 @@ if (messageInput && charCounter) {
   messageInput.addEventListener('input', function () {
     const len = this.value.length;
     charCounter.textContent = len + ' / ' + LIMITS.msgMax;
+    charCounter.classList.remove('warn', 'danger');
     if (len > LIMITS.msgMax) {
-      charCounter.style.color = '#ff6b6b';
+      charCounter.classList.add('danger');
     } else if (len > LIMITS.msgMax * 0.9) {
-      charCounter.style.color = '#f59e0b';
-    } else {
-      charCounter.style.color = 'var(--text-dim)';
+      charCounter.classList.add('warn');
     }
   });
 }

@@ -1391,16 +1391,24 @@ a.meta-value:hover { color: var(--accent); }
   font-size: 0.7rem;
   color: #ff6b6b;
   letter-spacing: 0.04em;
-  min-height: 16px;
-  opacity: 0;
-  transition: opacity 0.25s ease;
+  min-height: 0;
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.25s ease, margin 0.25s ease;
+  margin-top: 0;
+}
+
+.field-error.visible {
+  max-height: 24px;
+  margin-top: 4px;
 }
 
 .field-meta {
   display: flex;
   justify-content: space-between;
-  align-items: flex-start;
+  align-items: flex-end;
   gap: 12px;
+  margin-top: 4px;
 }
 
 .field-meta .field-error {
@@ -1409,11 +1417,20 @@ a.meta-value:hover { color: var(--accent); }
 
 .char-counter {
   font-family: var(--font-mono);
-  font-size: 0.68rem;
-  color: var(--text-dim);
+  font-size: 0.72rem;
+  color: var(--text-muted);
   letter-spacing: 0.04em;
   white-space: nowrap;
   flex-shrink: 0;
+  transition: color 0.3s;
+}
+
+.char-counter.warn {
+  color: #f59e0b;
+}
+
+.char-counter.danger {
+  color: #ff6b6b;
 }
 
 .form-feedback {
