@@ -18,7 +18,7 @@ declare(strict_types=1); ?>
     </div>
 </footer>
 
-<script src="assets/script.js"></script>
+<script src="assets/script.js?v=<?= filemtime(__DIR__ . '/../assets/script.js') ?>"></script>
 </body>
 
 </html>
